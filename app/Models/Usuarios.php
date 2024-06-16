@@ -33,6 +33,11 @@ class Usuarios extends Model implements Authenticatable
         return $this->belongsTo(Rol::class, 'id_rol', 'id_rol');
     }
 
+    public function preguntasUsuarios()
+    {
+        return $this->belongsTo(Preguntas_Usuarios::class, 'id_usuario', 'id_usuario');
+    }
+
     public function isAdmin()
     {
         // Aquí implementamos la lógica para verificar si el usuario tiene el rol de administrador

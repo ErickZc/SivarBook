@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
             $table->unsignedInteger('id_pregunta');
             $table->foreign('id_pregunta')->references('id_pregunta')->on('preguntas');
+            $table->string('respuesta');
         });
     }
 
