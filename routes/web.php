@@ -56,6 +56,10 @@ Route::middleware([Authenticated::class, CheckAdminRole::class])->group(function
     Route::post('/admin/usuarios/updateImage', [UsuarioController::class, 'updateImage'])->name('usuarios.updateImage');
     Route::post('/admin/usuarios/update', [UsuarioController::class, 'update'])->name('usuarios.update');
 
+    //Preguntas Admin
+    Route::get('/admin/usuarios/showPreguntas', [UsuarioController::class, 'showPreguntas'])->name('usuarios.showPreguntas');
+    Route::post('/admin/guardarRespuestas', [UsuarioController::class, 'guardarRespuestas'])->name('guardarRespuestasAdmin');
+
     //Actualizar password
     Route::get('/admin/usuarios/vResetPassword', [UsuarioController::class, 'indexResetPassword'])->name('usuarios.indexResetPassword');
     Route::post('/admin/usuarios/getCorreo', [UsuarioController::class, 'getCorreo'])->name('usuarios.getCorreo');
@@ -108,6 +112,10 @@ Route::middleware([Authenticated::class, CheckEmprendedorRole::class])->group(fu
     Route::post('/emprendedor/updateImage', [EmprendedorController::class, 'updateImage'])->name('emprendedor.updateImage');
     Route::post('/emprendedor/update', [EmprendedorController::class, 'update'])->name('emprendedor.update');
 
+    //Preguntas Emprendedor
+    Route::get('/emprendedor/showPreguntas', [EmprendedorController::class, 'showPreguntas'])->name('emprendedor.showPreguntas');
+    Route::post('/emprendedor/guardarRespuestas', [EmprendedorController::class, 'guardarRespuestas'])->name('guardarRespuestasEmprendedor');
+
     //Perfil
     Route::get('/emprendedor/profile', [EmprendedorController::class, 'profile'])->name('emprendedor.profile');
     Route::post('/emprendedor/setProfileUserId', [EmprendedorController::class, 'setProfileUserId'])->name('emprendedor.setProfileUserId');
@@ -144,6 +152,10 @@ Route::middleware([Authenticated::class, CheckTuristaRole::class])->group(functi
 
     Route::get('/turista/postDetails/{id}', [TuristaController::class, 'postDetails'])
         ->where('id', '[0-9]+')->name('turista.postDetails'); // Permite solo numeros enteros, caso contrario aparece pagina 404
+
+    //Preguntas Turista
+    Route::get('/turista/showPreguntas', [TuristaController::class, 'showPreguntas'])->name('turista.showPreguntas');
+    Route::post('/turista/guardarRespuestas', [TuristaController::class, 'guardarRespuestas'])->name('guardarRespuestasTurista');
 
     Route::post('/turista/Comments/', [TuristaController::class, 'allComments'])->name('turista.allComments');
     Route::post('/turista/createComment/', [TuristaController::class, 'createComment'])->name('turista.createComment');

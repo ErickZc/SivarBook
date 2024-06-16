@@ -81,11 +81,11 @@ class AuthController extends Controller
 
         switch ($idRol) {
             case 1:
-                return '/admin'; // Redirigir a la página de dashboard del administrador
+                return '/admin/usuarios/showPreguntas'; // Redirigir a la página de dashboard del administrador
             case 3:
-                return '/turista/dashboard'; // Redirigir a la página de turista
+                return '/turista/showPreguntas'; // Redirigir a la página de turista
             case 4:
-                return '/emprendedor/dashboard'; // Redirigir a la página de emprendedor
+                return '/emprendedor/showPreguntas'; // Redirigir a la página de emprendedor
             default:
                 return '/error/page'; // Redirigir a una página por defecto
         }

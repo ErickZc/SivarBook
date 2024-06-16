@@ -8,6 +8,11 @@ use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Preguntas_Usuarios;
+use App\Models\Preguntas;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
 
 class UsuarioController extends Controller
 {
@@ -16,6 +21,54 @@ class UsuarioController extends Controller
     public function __construct(Usuarios $usuarios)
     {
         $this->usuarios=$usuarios;
+    }
+
+    public function showPreguntas(){
+        $user = Auth::user();
+
+        // Consultar si el usuario ha respondido las preguntas
+        $preguntasUsuario = Preguntas_Usuarios::where('id_usuario', $user->id_usuario)->first();
+
+        // Variable para indicar si el usuario debe responder las preguntas
+        $debeResponderPreguntas = $preguntasUsuario === null;
+
+        $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
+                    ->take(3)
+                    ->select('id_pregunta', 'pregunta') // Aquí especificas las columnas que deseas seleccionar
+                    ->get();
+
+        // Log::info('Debe responder preguntas? ' . $preguntas);
+
+        return view('/admin/dashboard', compact('preguntas','debeResponderPreguntas'));
+    }
+
+    public function guardarRespuestas(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            
+            // Validar los datos recibidos (si es necesario)
+            $request->validate([
+                'respuestas_texto' => 'required|array',
+                'respuestas_texto.*' => 'required|string',
+            ]);
+
+            $respuestas = $request->input('respuestas_texto');
+
+            foreach ($respuestas as $idPregunta => $respuestaTexto) {
+                // Guardar cada respuesta en la tabla intermedia
+                $guardar = new Preguntas_Usuarios();
+                $guardar->id_usuario = $user->id_usuario;
+                $guardar->id_pregunta = $idPregunta;
+                $guardar->respuesta = $respuestaTexto;
+                $guardar->save();
+            }
+
+            return response()->json(['success' => true, 'message' => '¡Respuestas guardadas correctamente!'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Se produjo un error al guardar las respuestas.'], 500);
+        }
     }
     
      public function index()

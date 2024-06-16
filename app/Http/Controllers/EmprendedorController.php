@@ -14,6 +14,11 @@ use App\Models\Lugares_Valoraciones;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use App\Models\Preguntas_Usuarios;
+use App\Models\Preguntas;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
 
 class EmprendedorController extends Controller
 {
@@ -73,8 +78,58 @@ class EmprendedorController extends Controller
         // Retornar las valoraciones como JSON
         return response()->json($valoraciones);
     }
+    
+    public function showPreguntas(){
+        $user = Auth::user();
 
+        // Consultar si el usuario ha respondido las preguntas
+        $preguntasUsuario = Preguntas_Usuarios::where('id_usuario', $user->id_usuario)->first();
 
+        // Variable para indicar si el usuario debe responder las preguntas
+        $debeResponderPreguntas = $preguntasUsuario === null;
+
+        $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
+                    ->take(3)
+                    ->select('id_pregunta', 'pregunta') // Aquí especificas las columnas que deseas seleccionar
+                    ->get();
+
+        $departamentos = Departamento::where('estado', true)->get();
+        $municipios = Municipio::where('estado', true)->get();
+        $categorias = Categorias::where('estado', true)->get();
+
+        // Log::info('Debe responder preguntas? ' . $preguntas);
+
+        return view('/emprendedor/dashboard', compact('preguntas','debeResponderPreguntas','departamentos', 'municipios', 'categorias'));
+    }
+
+    public function guardarRespuestas(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            
+            // Validar los datos recibidos (si es necesario)
+            $request->validate([
+                'respuestas_texto' => 'required|array',
+                'respuestas_texto.*' => 'required|string',
+            ]);
+
+            $respuestas = $request->input('respuestas_texto');
+
+            foreach ($respuestas as $idPregunta => $respuestaTexto) {
+                // Guardar cada respuesta en la tabla intermedia
+                $guardar = new Preguntas_Usuarios();
+                $guardar->id_usuario = $user->id_usuario;
+                $guardar->id_pregunta = $idPregunta;
+                $guardar->respuesta = $respuestaTexto;
+                $guardar->save();
+            }
+
+            return response()->json(['success' => true, 'message' => '¡Respuestas guardadas correctamente!'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Se produjo un error al guardar las respuestas.'], 500);
+        }
+    }
 
     public function index()
     {

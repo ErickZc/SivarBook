@@ -43,8 +43,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand"><img
-                        src="{{ asset('icon.svg') }}" height="50px" /></a>
+                <a class="navbar-brand"><img src="{{ asset('icon.svg') }}" height="50px" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -52,23 +51,38 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav">
-                            
+
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                                <span class="nav-link text-dark">Bienvenido, {{ Auth::user()->nombre }}</span>
-                            </li>
-                            <li class="nav-item">
-                                <form id="logout-form" method="post">
-                                    <a href="/" type="submit" class="nav-link text-dark" style="background: none; border: none; cursor: pointer;">Cerrar sesión</a>
-                                </form>
+                            <span class="nav-link text-dark">Bienvenido, {{ Auth::user()->nombre }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <form id="logout-form" method="post">
+                                <a href="/" type="submit" class="nav-link text-dark"
+                                    style="background: none; border: none; cursor: pointer;">Cerrar sesión</a>
+                            </form>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
+
     <div class="container" id="primary-content">
+        <div class="row">
+            <div class="left col-md-6 grid gap-0 row-gap-3">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+                    aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/turista/dashboard">Turista</a></li>
+                        <li class="breadcrumb-item">Publicacion</li>
+                        <li class="breadcrumb-item active" aria-current="page">Detalles del lugar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
         <main role="main" class="">
             <div class="row">
                 @if ($lugar->count() > 0)
@@ -138,12 +152,16 @@
                                     </div>
                                     <div class="row g1 details-location">
                                         <div class="col-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
-                                        <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
-                                        <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
-                                        <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
-                                        </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />
+                                                <path
+                                                    d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z" />
+                                                <path
+                                                    d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z" />
+                                                <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567" />
+                                            </svg>
                                             {{ $item->precio }}
                                         </div>
                                     </div>
@@ -166,22 +184,32 @@
                                     <div class="row g-2 comment-section-stars" style="margin-top: 5px;">
                                         <div class="col-auto">
                                             <div class="d-flex align-items-center">
-                                                <span class="puntuacion" id="valoracionNumber"></span>
+                                                <h4 class="pb-0 mb-0">Valoraciones: &nbsp;</h4>
+                                                <span class="puntuacion" id="valoracionNumber" style="color: rgb(76, 76, 76)"></span>
                                                 <div class="valoracion mx-0 p-0">
-
-                                                    <button type="button" id="star5" class="icon-button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Excelente">
+                                                    <button type="button" id="star5" class="icon-button"
+                                                        data-bs-toggle="popover" data-bs-trigger="focus"
+                                                        data-bs-placement="bottom" data-bs-content="Excelente">
                                                         <i class="fas fa-star icon" id="star5i"></i>
                                                     </button>
-                                                    <button id="star4" class="icon-button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Muy Bueno">
+                                                    <button id="star4" class="icon-button"
+                                                        data-bs-toggle="popover" data-bs-trigger="focus"
+                                                        data-bs-placement="bottom" data-bs-content="Muy Bueno">
                                                         <i class="fas fa-star icon" id="star4i"></i>
                                                     </button>
-                                                    <button id="star3" class="icon-button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Regular">
+                                                    <button id="star3" class="icon-button"
+                                                        data-bs-toggle="popover" data-bs-trigger="focus"
+                                                        data-bs-placement="bottom" data-bs-content="Regular">
                                                         <i class="fas fa-star icon" id="star3i"></i>
                                                     </button>
-                                                    <button id="star2" class="icon-button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Malo">
+                                                    <button id="star2" class="icon-button"
+                                                        data-bs-toggle="popover" data-bs-trigger="focus"
+                                                        data-bs-placement="bottom" data-bs-content="Malo">
                                                         <i class="fas fa-star icon" id="star2i"></i>
                                                     </button>
-                                                    <button id="star1" class="icon-button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-placement="bottom" data-bs-content="Muy Malo">
+                                                    <button id="star1" class="icon-button"
+                                                        data-bs-toggle="popover" data-bs-trigger="focus"
+                                                        data-bs-placement="bottom" data-bs-content="Muy Malo">
                                                         <i class="fa fa-star icon" id="star1i"></i>
                                                     </button>
 
@@ -273,12 +301,18 @@
 
 
                                     </div>
-                                    <p class="mt-3" id="valoracionesContainer"></p>
-
-                                    <br>
+                                    <div class="mt-3" id="valoracionesContainer">
+                                        <div class="text-center">
+                                            <div class="spinner-border text-primary"
+                                                style="width: 2rem; height: 2rem;" role="status">
+                                                <span class="visually-hidden">Cargando...</span>
+                                            </div>
+                                            <p class="fs-5 mt-2 fw-bold">Cargando...</p>
+                                        </div>
+                                    </div>
                                     <div class="row comment-section-comments" id="contenido">
                                         <div class="col-12">
-                                            <p class="comment-description">Comentarios</p>
+                                            <h4 class="pb-0 mb-4">Comentarios:</h4>
                                             <div id="comments-alert" class="alert alert-danger" role="alert"
                                                 style="display: none">
                                                 Usuarios anónimos no pueden comentar, <a href="/Home/Login">Inicia
@@ -310,10 +344,12 @@
                                         </div>
 
                                         <div class="col-12" id="Comentarios">
-                                            <div class="d-flex justify-content-center">
-                                                <div class="spinner-border text-primary" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
+                                            <div class="text-center">
+                                                <div class="spinner-border text-primary"
+                                                    style="width: 2rem; height: 2rem;" role="status">
+                                                    <span class="visually-hidden">Cargando...</span>
                                                 </div>
+                                                <p class="fs-5 mt-2 fw-bold">Cargando...</p>
                                             </div>
                                         </div>
 
@@ -357,7 +393,37 @@
 
         </main>
     </div>
+
+    <footer class="footer-dark2 text-muted" id="footer">
+        <br>
+        <div class="container footer-2">
+            <div class="row footer-3">
+                <div class="col-md-6">
+                    <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework
+                        Empresariales</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="text-end">&copy; SivarBook Inc</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+
+        function scrollFunction() {
+            var footer = document.getElementById("footer");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                footer.style.bottom = "0px";
+            } else {
+                footer.style.bottom = "-200px";
+            }
+        }
+
         //variable global puntuación
         var puntuacion = 0;
         let valoracionGlobal = 0;
@@ -420,7 +486,7 @@
                     icon.classList.replace("fa-regular", "fa-solid");
                     icon.classList.replace("fa-star", "fa-star-half-stroke");
                 } else {
-                    star.style.color = '';
+                    star.style.color = '#F9D75D';
                     icon.classList.replace("fas", "fa-regular");
                     icon.classList.replace("fa-star-half-stroke", "fa-star");
                 }
@@ -436,6 +502,11 @@
             });
 
             let comentario = document.getElementById('v-comentario').value;
+
+            console.log(comentario);
+            console.log(puntuacion);
+            console.log(id);
+            console.log(usuario);
 
             $.ajax({
                 url: '{{ route('turista.saveValoracion') }}',
@@ -824,7 +895,7 @@
                     }).fail(function() {
                         Swal.fire({
                             title: 'Ocurrió un error',
-                            icon: 'success',
+                            icon: 'error',
                             confirmButtonText: 'Continuar'
                         })
                     });
