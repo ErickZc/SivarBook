@@ -100,6 +100,10 @@ Route::middleware([Authenticated::class, CheckEmprendedorRole::class])->group(fu
     Route::post('/emprendedor/updateImage', [EmprendedorController::class, 'updateImage'])->name('emprendedor.updateImage');
     Route::post('/emprendedor/update', [EmprendedorController::class, 'update'])->name('emprendedor.update');
 
+    //Preguntas Emprendedor
+    Route::get('/emprendedor/showPreguntas', [EmprendedorController::class, 'showPreguntas'])->name('emprendedor.showPreguntas');
+    Route::post('/emprendedor/guardarRespuestas', [EmprendedorController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+
     //Perfil
     Route::get('/emprendedor/profile', [EmprendedorController::class, 'profile'])->name('emprendedor.profile');
     Route::post('/emprendedor/setProfileUserId', [EmprendedorController::class, 'setProfileUserId'])->name('emprendedor.setProfileUserId');
