@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  --color-dark: hs1(252,30%,17%);
+  --color-light: #f2f5f8;
+  --color-gray: hs1(252,15%,65%);
+  --color-primary: #089ECA;
+  --border-radius: 2rem;
+  --border-radius-button: 1rem;
+  --card-border-radius: 1rem;
+  --card-padding: 1rem;
+  --btn-padding: 0.6rem 2rem;
+  --btn-seemore: #20659d;
+}
+
+* {
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+}
+
+body{
+  background-color: var(--color-light) !important;
+}
+
+.create-post {
+  width: 100% !important;
+  background-color: white !important;
+  border-radius: var(--card-border-radius) !important;
+  padding: var(--card-padding) !important;
+}
+
+.buttonAdd{
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.buttonCancel{
+  border-color: var(--color-primary) !important;
+}
+
+.buttonGeneric{
+  border-radius: var(--border-radius-button) !important;
+  padding: 7px !important;
+}
+
+.footer-dark {
+  position: fixed;
+  bottom: 0; /* Inicialmente oculto */
+  left: 0;
+  width: 100%;
+  color: #fff;
+  background: -webkit-linear-gradient(to right, #103CE7, #64E9FF);
+  background: linear-gradient(to right, #103CE7, #64E9FF);
+  /* background-color: #089eca; */
+  color: #fff !important;
+  padding: 15px 0;
+  transition: bottom 0.3s ease; /* Transición suave */
+}
+
+.footer-dark2 {
+  position: fixed;
+  bottom: -200px; /* Inicialmente oculto */
+  left: 0;
+  width: 100%;
+  background: -webkit-linear-gradient(to right, #103CE7, #64E9FF);
+  background: linear-gradient(to right, #103CE7, #64E9FF);
+  color: #fff !important;
+  padding: 15px 0;
+  transition: bottom 0.3s ease; /* Transición suave */
+}
+
+.footer-dark2 .footer-2 {
+  background-color: inherit !important;
+  color: #f0f9ff !important;
+}

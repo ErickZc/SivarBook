@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+.page_404
+{
+    padding-top: 150px;
+    background: #fff;
+    font-family: 'Poppins';
+}
+
+.page_404 img
+{    
+    width: 100%;
+}
+
+.four_zero_four_bg
+{
+    
+    background: url('../bg.gif');
+    height: 400px;
+    width: 100%;
+    background-position: center;
+}
+
+h1
+{
+    font-size: 80px;
+}
+
+h3
+{
+    font-size: 80px;
+}
+
+a
+{
+    color: #fff;
+    background: #39ac31;
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    overflow: hidden;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.content_box_404
+{
+    margin-top: -50px;
+}
+a:hover
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+.text {
+    position: absolute;
+    top: -5%; 
+    right: 50%;
+    transform: translate(50%,-50%);
+    text-transform: uppercase;
+    font-family: verdana;
+    font-size: 10em;
+    font-weight: 700;
+    color: #f5f5f5;
+    text-shadow: 1px 1px 1px #919191,
+        1px 2px 1px #919191,
+        1px 3px 1px #919191,
+        1px 4px 1px #919191,
+        1px 5px 1px #919191,
+        1px 6px 1px #919191,
+        1px 7px 1px #919191,
+        1px 8px 1px #919191,
+        1px 9px 1px #919191,
+        1px 10px 1px #919191,
+        1px 18px 6px rgba(16,16,16,0.4),
+        1px 22px 10px rgba(16,16,16,0.2),
+        1px 25px 35px rgba(16,16,16,0.2),
+        1px 30px 60px rgba(16,16,16,0.4);
+}
+
+.containerF {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+
+}
+/* Estilos para el enlace */
+.link {
+    text-decoration: none;
+    color: #FFF;
+    display: flex;
+    align-items: center; /* Centra verticalmente dentro del enlace */
+}
+/* Espacio entre el icono y el texto */
+.link svg {
+    margin-right: 5px;
+}
