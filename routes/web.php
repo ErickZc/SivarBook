@@ -56,6 +56,10 @@ Route::middleware([Authenticated::class, CheckAdminRole::class])->group(function
     Route::post('/admin/usuarios/updateImage', [UsuarioController::class, 'updateImage'])->name('usuarios.updateImage');
     Route::post('/admin/usuarios/update', [UsuarioController::class, 'update'])->name('usuarios.update');
 
+    //Preguntas Admin
+    Route::get('/admin/usuarios/showPreguntas', [UsuarioController::class, 'showPreguntas'])->name('usuarios.showPreguntas');
+    Route::post('/admin/guardarRespuestas', [UsuarioController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+
     //Actualizar password
     Route::get('/admin/usuarios/vResetPassword', [UsuarioController::class, 'indexResetPassword'])->name('usuarios.indexResetPassword');
     Route::post('/admin/usuarios/getCorreo', [UsuarioController::class, 'getCorreo'])->name('usuarios.getCorreo');
