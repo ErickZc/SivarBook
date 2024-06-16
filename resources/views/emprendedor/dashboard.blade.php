@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambio de credenciales</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SivarBook</title>
+    <link rel="shortcut icon" href="~/Images/SivarBook.png" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/valoraciones.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" crossorigin="anonymous"></script>
-    <link href="{{ asset('css/dashboardEmprendedor.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" asp-append-version="true" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"> </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+        asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+        asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    .puntuacion {
-        font-size: 23px;
-        font-weight: bold;
-    }
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Font Awesome icons -->
+    <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="{{ asset('css/turista.css') }}" rel="stylesheet">
 
     <!-- Agrega el CSS de Toastr -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
@@ -94,17 +99,15 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="handle ps-3">
+                    <div class="handle">
                         <br />
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="nombrePlaceholder">
-                            Nombre: <span class="placeholder col-6"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="edadPlaceholder">
-                            Edad: <span class="placeholder col-4"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="emailPlaceholder">
-                            E-mail: <span class="placeholder col-8"></span>
-                        </p>
+                            <b id="nombrePlaceholder"><span class=""></span></b>
+                            <p class="text-muted mb-0" id="edadPlaceholder">
+                                Edad: <span class=""></span>
+                            </p>
+                            <p class="text-muted" id="emailPlaceholder">
+                                E-mail: <span class=""></span>
+                            </p>
                     </div>
                 </div>
             </div>
@@ -146,7 +149,7 @@
                 <div class="create-post">
                     <div class="row">
                         <div class="col-auto">
-                            <b style="font-size:24px;"> > > Mis publicaciones</b> 
+                            <b style="font-size:20px;"> > > Mis publicaciones</b> 
                         </div>
                     </div>
                 </div>
@@ -421,12 +424,13 @@
     </div>
 </div>
 
-<footer class="footer-dark text-muted" id="footer">
+<footer class="footer-dark2 text-muted" id="footer">
     <br>
     <div class="container footer-2">
         <div class="row footer-3">
             <div class="col-md-6">
-                <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework Empresariales</p>
+                <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework
+                    Empresariales</p>
             </div>
             <div class="col-md-6 text-end">
                 <p class="text-end">&copy; SivarBook Inc</p>
@@ -446,6 +450,20 @@
 
 
 <script>   
+window.onscroll = function() {
+            scrollFunction()
+        };
+
+
+        function scrollFunction() {
+            var footer = document.getElementById("footer");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                footer.style.bottom = "0px";
+            } else {
+                footer.style.bottom = "-200px";
+            }
+        }
+
     toastr.options = {
         "closeButton": true,
         "newestOnTop": false,
@@ -508,7 +526,7 @@
             });
         });
     });
-    window.onscroll = function() {scrollFunction()};
+    
 
 
 
@@ -534,15 +552,6 @@
         });
     }
 
-
-    function scrollFunction() {
-    var footer = document.getElementById("footer");
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            footer.style.bottom = "0";
-        } else {
-            footer.style.bottom = "-200px";
-        }
-    }
 
         function cargarLugares() {
 

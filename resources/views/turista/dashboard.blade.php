@@ -71,259 +71,279 @@
         </nav>
     </header>
     <div class="container" id="primary-content">
-        <main role="main" class="">
-            <div class="container">
-                <div class="row">
-                    <div class="left col-md-3 grid gap-0 row-gap-3">
-                        <div class="row p-2 g-col-12">
-                            <div class="sidebar rol-acceso">
-                                <strong>TURISTA</strong>
-                            </div>
-                        </div>
-                        <div class="row p-2 g-col-12">
-                            <div class="profile">
-                                <div class="profile-photo-align">
-                                    <div class="profile-photo-primary">
-                                        <img src="data:image;base64,{{ $turista->imagen }}" width='98'
-                                            height='98' alt="Foto de perfil" class="imagen-turista">
-                                    </div>
-                                </div>
-                                <div class="handle">
-                                    <br />
-                                    <b>{{ $turista->nombre }} {{ $turista->apellido }}</b>
-                                    <p class="text-muted">
-                                        Edad: {{ $turista->edad }}
-                                        <br />
-                                        E-mail: {{ $turista->correo }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row p-2 g-col-12">
-                            <div class="sidebar">
-                                <a class="menu-item" href="{{ route('turista.index') }}">
-                                    <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 14h-4v7h4v-7Z"></path>
-                                        <path
-                                            d="m20.42 10.184-7.71-7.88a.999.999 0 0 0-1.42 0l-7.71 7.89a2 2 0 0 0-.58 1.43v8.38a2 2 0 0 0 1.89 2H8v-9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v9h3.11a2 2 0 0 0 1.89-2v-8.38a2.07 2.07 0 0 0-.58-1.44Z">
-                                        </path>
-                                    </svg>&nbsp; &nbsp;<h5> Inicio</h5>
-                                </a>
-                                <form id="profileForm" action="{{ route('turista.profile') }}" method="GET">
-                                    <input type="hidden" name="id_usuario" value="36">
-                                    <a class="menu-item" href="javascript:void(0);"
-                                        onclick="setProfileUserId(usuario);">
-                                        <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M15.592 3.027C14.68 2.042 13.406 1.5 12 1.5c-1.414 0-2.692.54-3.6 1.518-.918.99-1.365 2.334-1.26 3.786C7.348 9.67 9.528 12 12 12c2.472 0 4.648-2.33 4.86-5.195.106-1.439-.344-2.78-1.268-3.778Z">
-                                            </path>
-                                            <path
-                                                d="M20.25 22.5H3.75a1.454 1.454 0 0 1-1.134-.522 1.655 1.655 0 0 1-.337-1.364c.396-2.195 1.63-4.038 3.571-5.333C7.574 14.132 9.758 13.5 12 13.5c2.242 0 4.426.633 6.15 1.781 1.94 1.294 3.176 3.138 3.571 5.332.091.503-.032 1-.336 1.365a1.453 1.453 0 0 1-1.135.522Z">
-                                            </path>
-                                        </svg>
-                                        &nbsp; &nbsp;
-                                        <h5> Mi perfil</h5>
-                                    </a>
-
-                                </form>
-                                <a class="menu-item" href="/">
-                                    <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M19 11.001H7.14l3.63-4.36a1.001 1.001 0 0 0-1.54-1.28l-5 6a1.184 1.184 0 0 0-.09.15c0 .05 0 .08-.07.13a1 1 0 0 0-.07.36 1 1 0 0 0 .07.36c0 .05 0 .08.07.13.026.052.056.103.09.15l5 6a1 1 0 0 0 1.41.13 1 1 0 0 0 .13-1.41l-3.63-4.36H19a1 1 0 0 0 0-2Z">
-                                        </path>
-                                    </svg>&nbsp; &nbsp;<h5> Cerrar sesión</h5>
-                                </a>
-
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="left col-md-3 grid gap-0 row-gap-3">
+                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a>Turista</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="left col-md-3 grid gap-0 row-gap-3">
+                <div class="row p-2 g-col-12">
+                    <div class="sidebar rol-acceso">
+                        <strong>TURISTA</strong>
                     </div>
-                    <div class="middle col-md-6 grid gap-0 row-gap-3">
-                        <div class="row p-2 g-col-12">
-                            <div class="create-post">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <b style="font-size:17px;">Explora todos tus destinos</b>
-                                        <p>Encuentra los mejores destinos turísticos y lugares de interés en El Salvador
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <a href="#" class="find" data-bs-toggle="modal"
-                                            data-bs-target="#busquedaUbicacion">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        <svg width="22" height="22" fill="#000000"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M12 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z">
-                                                            </path>
-                                                            <path
-                                                                d="M12 2a8 8 0 0 0-8 7.92c0 5.48 7.05 11.58 7.35 11.84a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 9.92A8 8 0 0 0 12 2Zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z">
-                                                            </path>
-                                                        </svg>
-                                                        Busca por ubicación
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="#" class="find" data-bs-toggle="modal"
-                                            data-bs-target="#busquedaCategoria">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        <svg width="22" height="22" fill="#000000"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M15 16H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2Z"></path>
-                                                            <path d="M9 14h3a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2Z"></path>
-                                                            <path
-                                                                d="m19.74 8.33-5.44-6a1 1 0 0 0-.74-.33h-7A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.531 2.531 0 0 0 20 19.5V9a1 1 0 0 0-.26-.67ZM14 5l2.74 3h-2a.79.79 0 0 1-.74-.85V5Zm3.44 15H6.56a.53.53 0 0 1-.56-.5v-15a.53.53 0 0 1 .56-.5H12v3.15A2.79 2.79 0 0 0 14.71 10H18v9.5a.53.53 0 0 1-.56.5Z">
-                                                            </path>
-                                                        </svg>
-                                                        Busca por categoría
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="#" class="find" data-bs-toggle="modal"
-                                            data-bs-target="#busquedaDescripcion">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        <svg width="22" height="22" fill="#000000"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                                                            <path d="M17 13a3 3 0 1 0 0-5.999A3 3 0 0 0 17 13Z"></path>
-                                                            <path
-                                                                d="M21 19.998a1 1 0 0 0 1-1 5 5 0 0 0-8.06-3.95A7 7 0 0 0 2 19.998a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1">
-                                                            </path>
-                                                        </svg>
-                                                        Buscar por descripción
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="#" class="find" data-bs-toggle="modal"
-                                            data-bs-target="#busquedaNombre">
-                                            <div class="card text-center">
-                                                <div class="card-body">
-                                                    <p class="card-text">
-                                                        <svg width="22" height="22" fill="#000000"
-                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M19 3H7a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1ZM7 19a1 1 0 0 1 0-2h11v2H7Z">
-                                                            </path>
-                                                        </svg>
-                                                        Busca por nombre
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
+                </div>
+                <div class="row p-2 g-col-12">
+                    <div class="profile">
+                        <div class="profile-photo-align">
+                            <div class="profile-photo-primary">
+                                <img src="data:image;base64,{{ $turista->imagen }}" width='98'
+                                    height='98' alt="Foto de perfil" class="imagen-turista">
+                            </div>
+                        </div>
+                        <div class="handle">
+                            <br />
+                            <b>{{ $turista->nombre }} {{ $turista->apellido }}</b>
+                            <p class="text-muted">
+                                Edad: {{ $turista->edad }}
                                 <br />
-                            </div>
+                                E-mail: {{ $turista->correo }}
+                            </p>
                         </div>
-                        @if (!empty($lugares) && count($lugares) > 0)
-                            @foreach ($lugares as $item)
-                                <?php
-                                $fechaPublicacion = new DateTime($item->fecha);
-                                $diferencia = (new DateTime())->diff($fechaPublicacion);
-                                
-                                if ($diferencia->days >= 7) {
-                                    $formatoFecha = $fechaPublicacion->format('d/m/Y');
-                                } elseif ($diferencia->days >= 2) {
-                                    $formatoFecha = $diferencia->days . ' días atrás';
-                                } elseif ($diferencia->days >= 1) {
-                                    $formatoFecha = 'Ayer';
-                                } else {
-                                    $formatoFecha = 'Hoy';
-                                }
-                                ?>
-                                <div class="row p-2 g-col-12">
-                                    <div class="feed">
-                                        <input type="hidden" name="IdLugar" value="{{ $item->idLugar }}">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="row g-2 feed-header">
-                                                <div class="col-auto">
-                                                    <div class="profile-photo">
-                                                        <img src="data:image;base64,{{ $item->imagenUser }}"
-                                                            width='37.8' height='37.8' alt="Foto de perfil"
-                                                            class="imagen-turista">
-                                                    </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <b>{{ $item->user }}</b>
-                                                    <p class="text-muted">{{ $formatoFecha }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end">
-                                                <!-- Código adicional si es necesario -->
-                                            </div>
-                                        </div>
-                                        <div class="row feed-description">
-                                            <div class="col-auto">
-                                                <h4>{{ $item->nombre }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="row g1 feed-location">
-                                            <div class="col-auto">
-                                                <svg width="20" height="20" fill="#696969"
-                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
-                                                    <path
-                                                        d="M12 2a8 8 0 0 0-8 7.92c0 5.48 7.05 11.58 7.35 11.84a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 9.92A8 8 0 0 0 12 2Zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z">
-                                                    </path>
-                                                </svg>
-                                                {{ $item->municipio }}, {{ $item->departamento }}
-                                            </div>
-                                        </div>
-                                        <div class="row feed-description">
-                                            <div class="col-auto">
-                                                <p>{!! $item->descripcion !!}</p>
-                                            </div>
-                                        </div>
-                                        <div class="feed-photo">
-                                            <img src="data:image;base64,{{ $item->imagen }}" alt="Foto de perfil"
-                                                class="profile-picture">
-                                        </div>
-                                        <div class="feed-button">
-                                            <a href="{{ route('turista.postDetails', ['id' => $item->idLugar]) }}"
-                                                class="btn buttonAdd buttonGeneric btn-sm">Ver publicación</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
+                    </div>
+                </div>
+                <div class="row p-2 g-col-12">
+                    <div class="sidebar">
+                        <a class="menu-item" href="{{ route('turista.index') }}">
+                            <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14 14h-4v7h4v-7Z"></path>
+                                <path
+                                    d="m20.42 10.184-7.71-7.88a.999.999 0 0 0-1.42 0l-7.71 7.89a2 2 0 0 0-.58 1.43v8.38a2 2 0 0 0 1.89 2H8v-9a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v9h3.11a2 2 0 0 0 1.89-2v-8.38a2.07 2.07 0 0 0-.58-1.44Z">
+                                </path>
+                            </svg>&nbsp; &nbsp;<h5> Inicio</h5>
+                        </a>
+                        <form id="profileForm" action="{{ route('turista.profile') }}" method="GET">
+                            <input type="hidden" name="id_usuario" value="36">
+                            <a class="menu-item" href="javascript:void(0);"
+                                onclick="setProfileUserId(usuario);">
+                                <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15.592 3.027C14.68 2.042 13.406 1.5 12 1.5c-1.414 0-2.692.54-3.6 1.518-.918.99-1.365 2.334-1.26 3.786C7.348 9.67 9.528 12 12 12c2.472 0 4.648-2.33 4.86-5.195.106-1.439-.344-2.78-1.268-3.778Z">
+                                    </path>
+                                    <path
+                                        d="M20.25 22.5H3.75a1.454 1.454 0 0 1-1.134-.522 1.655 1.655 0 0 1-.337-1.364c.396-2.195 1.63-4.038 3.571-5.333C7.574 14.132 9.758 13.5 12 13.5c2.242 0 4.426.633 6.15 1.781 1.94 1.294 3.176 3.138 3.571 5.332.091.503-.032 1-.336 1.365a1.453 1.453 0 0 1-1.135.522Z">
+                                    </path>
+                                </svg>
+                                &nbsp; &nbsp;
+                                <h5> Mi perfil</h5>
+                            </a>
+
+                        </form>
+                        <a class="menu-item" href="/">
+                            <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19 11.001H7.14l3.63-4.36a1.001 1.001 0 0 0-1.54-1.28l-5 6a1.184 1.184 0 0 0-.09.15c0 .05 0 .08-.07.13a1 1 0 0 0-.07.36 1 1 0 0 0 .07.36c0 .05 0 .08.07.13.026.052.056.103.09.15l5 6a1 1 0 0 0 1.41.13 1 1 0 0 0 .13-1.41l-3.63-4.36H19a1 1 0 0 0 0-2Z">
+                                </path>
+                            </svg>&nbsp; &nbsp;<h5> Cerrar sesión</h5>
+                        </a>
 
                     </div>
-                    <div class="right col-md-3 grid gap-0 row-gap-3">
-
-                        <div class="row p-2 g-col-12">
-                            <div class="data">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <b style="font-size:17px;">Noticias relevantes</b>
-                                        <p>En esta sección encontrarás las noticias más relevantes del mundo del turismo
-                                            en el país.</p>
-                                    </div>
-                                </div>
-                                <div class="news" id="news">
-
-                                </div>
+                </div>
+            </div>
+            <div class="middle col-md-6 grid gap-0 row-gap-3">
+                <div class="row p-2 g-col-12">
+                    <div class="create-post">
+                        <div class="row">
+                            <div class="col-auto">
+                                <b style="font-size:20px;"> > > Todas las publicaciones</b> 
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row p-2 g-col-12">
+                    <div class="create-post">
+                        <div class="row">
+                            <div class="col-auto">
+                                <b style="font-size:17px;">Explora todos tus destinos</b>
+                                <p>Encuentra los mejores destinos turísticos y lugares de interés en El Salvador
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <a href="#" class="find" data-bs-toggle="modal"
+                                    data-bs-target="#busquedaUbicacion">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <svg width="22" height="22" fill="#000000"
+                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z">
+                                                    </path>
+                                                    <path
+                                                        d="M12 2a8 8 0 0 0-8 7.92c0 5.48 7.05 11.58 7.35 11.84a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 9.92A8 8 0 0 0 12 2Zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z">
+                                                    </path>
+                                                </svg>
+                                                Busca por ubicación
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a href="#" class="find" data-bs-toggle="modal"
+                                    data-bs-target="#busquedaCategoria">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <svg width="22" height="22" fill="#000000"
+                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 16H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2Z"></path>
+                                                    <path d="M9 14h3a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2Z"></path>
+                                                    <path
+                                                        d="m19.74 8.33-5.44-6a1 1 0 0 0-.74-.33h-7A2.53 2.53 0 0 0 4 4.5v15A2.53 2.53 0 0 0 6.56 22h10.88A2.531 2.531 0 0 0 20 19.5V9a1 1 0 0 0-.26-.67ZM14 5l2.74 3h-2a.79.79 0 0 1-.74-.85V5Zm3.44 15H6.56a.53.53 0 0 1-.56-.5v-15a.53.53 0 0 1 .56-.5H12v3.15A2.79 2.79 0 0 0 14.71 10H18v9.5a.53.53 0 0 1-.56.5Z">
+                                                    </path>
+                                                </svg>
+                                                Busca por categoría
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a href="#" class="find" data-bs-toggle="modal"
+                                    data-bs-target="#busquedaDescripcion">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <svg width="22" height="22" fill="#000000"
+                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                                                    <path d="M17 13a3 3 0 1 0 0-5.999A3 3 0 0 0 17 13Z"></path>
+                                                    <path
+                                                        d="M21 19.998a1 1 0 0 0 1-1 5 5 0 0 0-8.06-3.95A7 7 0 0 0 2 19.998a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1">
+                                                    </path>
+                                                </svg>
+                                                Buscar por descripción
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                <a href="#" class="find" data-bs-toggle="modal"
+                                    data-bs-target="#busquedaNombre">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                <svg width="22" height="22" fill="#000000"
+                                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M19 3H7a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1ZM7 19a1 1 0 0 1 0-2h11v2H7Z">
+                                                    </path>
+                                                </svg>
+                                                Busca por nombre
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                @if (!empty($lugares) && count($lugares) > 0)
+                    @foreach ($lugares as $item)
+                        <?php
+                        $fechaPublicacion = new DateTime($item->fecha);
+                        $diferencia = (new DateTime())->diff($fechaPublicacion);
+                        
+                        if ($diferencia->days >= 7) {
+                            $formatoFecha = $fechaPublicacion->format('d/m/Y');
+                        } elseif ($diferencia->days >= 2) {
+                            $formatoFecha = $diferencia->days . ' días atrás';
+                        } elseif ($diferencia->days >= 1) {
+                            $formatoFecha = 'Ayer';
+                        } else {
+                            $formatoFecha = 'Hoy';
+                        }
+                        ?>
+                        <div class="row p-2 g-col-12">
+                            <div class="feed">
+                                <input type="hidden" name="IdLugar" value="{{ $item->idLugar }}">
+                                <div class="d-flex justify-content-between">
+                                    <div class="row g-2 feed-header">
+                                        <div class="col-auto">
+                                            <div class="profile-photo">
+                                                <img src="data:image;base64,{{ $item->imagenUser }}"
+                                                    width='37.8' height='37.8' alt="Foto de perfil"
+                                                    class="imagen-turista">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <b>{{ $item->user }}</b>
+                                            <p class="text-muted">{{ $formatoFecha }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <!-- Código adicional si es necesario -->
+                                    </div>
+                                </div>
+                                <div class="row feed-description">
+                                    <div class="col-auto">
+                                        <h4>{{ $item->nombre }}</h4>
+                                    </div>
+                                </div>
+                                <div class="row g1 feed-location">
+                                    <div class="col-auto">
+                                        <svg width="20" height="20" fill="#696969"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                            <path
+                                                d="M12 2a8 8 0 0 0-8 7.92c0 5.48 7.05 11.58 7.35 11.84a1 1 0 0 0 1.3 0C13 21.5 20 15.4 20 9.92A8 8 0 0 0 12 2Zm0 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z">
+                                            </path>
+                                        </svg>
+                                        {{ $item->municipio }}, {{ $item->departamento }}
+                                    </div>
+                                </div>
+                                <div class="row feed-description">
+                                    <div class="col-auto">
+                                        <p>{!! $item->descripcion !!}</p>
+                                    </div>
+                                </div>
+                                <div class="feed-photo">
+                                    <img src="data:image;base64,{{ $item->imagen }}" alt="Foto de perfil"
+                                        class="profile-picture">
+                                </div>
+                                <div class="feed-button">
+                                    <a href="{{ route('turista.postDetails', ['id' => $item->idLugar]) }}"
+                                        class="btn buttonAdd buttonGeneric btn-sm">Ver publicación</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
+            </div>
+            <div class="right col-md-3 grid gap-0 row-gap-3">
+
+                <div class="row p-2 g-col-12">
+                    <div class="data">
+                        <div class="row">
+                            <div class="col-auto">
+                                <b style="font-size:17px;">Noticias relevantes</b>
+                                <p>En esta sección encontrarás las noticias más relevantes del mundo del turismo
+                                    en el país.</p>
+                            </div>
+                        </div>
+                        <div class="news" id="news">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <main role="main" class="">
+            <div class="container">
+                
             </div>
         </main>
     </div>
@@ -544,7 +564,7 @@
                         @endif
                     </div>
                     <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
@@ -552,11 +572,40 @@
         </div>
     </div>
 
+    <footer class="footer-dark2 text-muted" id="footer">
+        <br>
+        <div class="container footer-2">
+            <div class="row footer-3">
+                <div class="col-md-6">
+                    <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework
+                        Empresariales</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <p class="text-end">&copy; SivarBook Inc</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
     <!-- Agrega el JS de jQuery y Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>  
+    window.onscroll = function() {
+            scrollFunction()
+        };
+
+
+        function scrollFunction() {
+            var footer = document.getElementById("footer");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                footer.style.bottom = "0px";
+            } else {
+                footer.style.bottom = "-200px";
+            }
+        }
+
         toastr.options = {
             "closeButton": true,
             "newestOnTop": false,
