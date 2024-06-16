@@ -404,16 +404,20 @@
             <form id="preguntasForm">
                 @csrf <!-- Agrega el campo oculto para el token CSRF -->
                 <div class="modal-body">
-                    @if ($preguntas->isNotEmpty())
-                        @foreach($preguntas as $pregunta)
-                            <div class="mb-3">
-                                <label for="respuesta_texto_{{ $pregunta->id_pregunta }}" class="form-label" style="font-weight: bold">{{ $pregunta->pregunta }}</label>
-                                <input type="text" class="form-control" id="respuesta_texto_{{ $pregunta->id_pregunta }}" name="respuestas_texto[{{ $pregunta->id_pregunta }}]" placeholder="Respuesta textual" required>
-                            </div>
-                        @endforeach
+                    @isset($preguntas)
+                        @if ($preguntas->isNotEmpty())
+                            @foreach($preguntas as $pregunta)
+                                <div class="mb-3">
+                                    <label for="respuesta_texto_{{ $pregunta->id_pregunta }}" class="form-label" style="font-weight: bold">{{ $pregunta->pregunta }}</label>
+                                    <input type="text" class="form-control" id="respuesta_texto_{{ $pregunta->id_pregunta }}" name="respuestas_texto[{{ $pregunta->id_pregunta }}]" placeholder="Respuesta textual" required>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No hay preguntas disponibles en este momento.</p>
+                        @endif
                     @else
                         <p>No hay preguntas disponibles en este momento.</p>
-                    @endif
+                    @endisset
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
@@ -440,9 +444,9 @@
 </footer>
 
 
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> -->
 
 <!-- Agrega el JS de jQuery y Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -483,13 +487,18 @@ window.onscroll = function() {
 
     $(document).ready(function() {
         // Mostrar el modal automáticamente si debe responder preguntas
-        @if ($debeResponderPreguntas)
-            var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
-                keyboard: false, // Deshabilitar el cierre con la tecla ESC
-                backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
-            });
-            modal.show();
-        @endif
+        @isset($debeResponderPreguntas)
+            @if ($debeResponderPreguntas)
+                <script>
+                    var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
+                        keyboard: false, // Deshabilitar el cierre con la tecla ESC
+                        backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
+                    });
+                    modal.show();
+                </script>
+            @endif
+        @endisset
+
 
         $(document).keypress(function(e)    {
                 console.log(e);
