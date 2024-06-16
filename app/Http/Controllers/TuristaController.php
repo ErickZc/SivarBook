@@ -322,6 +322,7 @@ class TuristaController extends Controller
         $comentario->id_usuario = $request->input('IdUsuario');
         $comentario->comentario = $request->input('Comentario');
         $comentario->fecha = Carbon::now();
+        $comentario->revision = '';
         $comentario->estado = true;
 
         if ($comentario->save()) {
@@ -345,7 +346,7 @@ class TuristaController extends Controller
             $valoracionLugar->id_valoracion = $request->input('puntuacion');
             $valoracionLugar->id_usuario = $request->input('idUsuario');
             $valoracionLugar->fecha = Carbon::now();
-
+            $valoracionLugar->descripcion='';
             $valoracionLugar->save();
             $idValoracion = $valoracionLugar;
         } else {

@@ -16,6 +16,11 @@ body{
   padding: var(--card-padding) !important;
 }
 
+.puntuacion {
+  font-size: 23px;
+  font-weight: bold;
+}
+
 .buttonAdd{
   background-color: var(--color-primary) !important;
 }
