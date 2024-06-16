@@ -141,6 +141,10 @@ Route::middleware([Authenticated::class, CheckTuristaRole::class])->group(functi
     Route::get('/turista/postDetails/{id}', [TuristaController::class, 'postDetails'])
         ->where('id', '[0-9]+')->name('turista.postDetails'); // Permite solo numeros enteros, caso contrario aparece pagina 404
 
+    //Preguntas Turista
+    Route::get('/turista/showPreguntas', [TuristaController::class, 'showPreguntas'])->name('turista.showPreguntas');
+    Route::post('/turista/guardarRespuestas', [TuristaController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+
     Route::post('/turista/Comments/', [TuristaController::class, 'allComments'])->name('turista.allComments');
     Route::post('/turista/createComment/', [TuristaController::class, 'createComment'])->name('turista.createComment');
 

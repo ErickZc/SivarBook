@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SivarBook</title>
-    <link rel="shortcut icon" href="~/Images/SivarBook.png" />
+    <!-- <link rel="shortcut icon" href="~/Images/SivarBook.png" /> -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" crossorigin="anonymous"></script>
@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
         integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link href="{{ asset('css/turista.css') }}" rel="stylesheet">
+
+    <!-- Agrega el CSS de Toastr -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
     <script>
         // Verificar si el usuario intenta navegar hacia atrás
@@ -518,11 +521,105 @@
         </div>
     </div>
 
+    <!-- Modal para responder preguntas -->
+    <div class="modal fade" id="preguntasModal" tabindex="-1" aria-labelledby="preguntasModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="preguntasModalLabel">Responder preguntas</h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <form id="preguntasForm">
+                    @csrf <!-- Agrega el campo oculto para el token CSRF -->
+                    <div class="modal-body">
+                        @if ($preguntas->isNotEmpty())
+                            @foreach($preguntas as $pregunta)
+                                <div class="mb-3">
+                                    <label for="respuesta_texto_{{ $pregunta->id_pregunta }}" class="form-label" style="font-weight: bold">{{ $pregunta->pregunta }}</label>
+                                    <input type="text" class="form-control" id="respuesta_texto_{{ $pregunta->id_pregunta }}" name="respuestas_texto[{{ $pregunta->id_pregunta }}]" placeholder="Respuesta textual" required>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No hay preguntas disponibles en este momento.</p>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <script>
+    <!-- Agrega el JS de jQuery y Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>  
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
         $(document).ready(function() {
             cargarDatosCategoria();
             callAPI();
+        });
+        // Mostrar el modal automáticamente si debe responder preguntas
+        @if ($debeResponderPreguntas)
+            var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
+                keyboard: false, // Deshabilitar el cierre con la tecla ESC
+                backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
+            });
+            modal.show();
+        @endif
+
+        $(document).keypress(function(e)    {
+                console.log(e);
+            if (e.keyCode == 27)
+            {
+                return false;
+            }
+        });
+
+        $("#preguntasForm").submit(function (e) {
+            e.preventDefault(); // Evitar envío automático del formulario
+
+            // Obtener los datos del formulario
+            var formData = $(this).serialize();
+
+            // Realizar petición AJAX al servidor para guardar respuestas
+            $.ajax({
+                type: "POST",
+                url: '{{ route('guardarRespuestas') }}',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500); 
+                    } else {
+                        toastr.error(response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("Se produjo un error al registrar las respuestas.");
+                }
+            });
         });
 
         // Variable de prueba mientras se hace el login, es el id de un turista

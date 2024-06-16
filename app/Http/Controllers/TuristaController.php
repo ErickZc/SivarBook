@@ -13,13 +13,98 @@ use App\Models\Lugares_Valoraciones;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use App\Models\Preguntas_Usuarios;
+use App\Models\Preguntas;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
 
 class TuristaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    
+    public function showPreguntas(){
+        $user = Auth::user();
+
+        // Consultar si el usuario ha respondido las preguntas
+        $preguntasUsuario = Preguntas_Usuarios::where('id_usuario', $user->id_usuario)->first();
+
+        // Variable para indicar si el usuario debe responder las preguntas
+        $debeResponderPreguntas = $preguntasUsuario === null;
+
+        Log::info('preguntasUsuario' . $preguntasUsuario);
+
+        $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
+                    ->take(3)
+                    ->select('id_pregunta', 'pregunta') // Aquí especificas las columnas que deseas seleccionar
+                    ->get();
+
+        $userId = Auth::user()->id_usuario;
+        $turista = Usuarios::where('id_usuario', $userId)->where('estado', true)->firstOrFail();
+        $lugares = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'usuarios.imagen as imagenUser',
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.imagen as imagen',
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->get();
+
+        // Log::info('Debe responder preguntas? ' . $preguntas);
+
+        return view('/turista/dashboard', compact('preguntas','debeResponderPreguntas','turista', 'lugares'));
+    }
+
+    public function guardarRespuestas(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            
+            // Validar los datos recibidos (si es necesario)
+            $request->validate([
+                'respuestas_texto' => 'required|array',
+                'respuestas_texto.*' => 'required|string',
+            ]);
+
+            $respuestas = $request->input('respuestas_texto');
+
+            foreach ($respuestas as $idPregunta => $respuestaTexto) {
+                // Guardar cada respuesta en la tabla intermedia
+                $guardar = new Preguntas_Usuarios();
+                $guardar->id_usuario = $user->id_usuario;
+                $guardar->id_pregunta = $idPregunta;
+                $guardar->respuesta = $respuestaTexto;
+                $guardar->save();
+            }
+
+            return response()->json(['success' => true, 'message' => '¡Respuestas guardadas correctamente!'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Se produjo un error al guardar las respuestas.'], 500);
+        }
+    }
+
     public function index()
     {
         $userId = Auth::user()->id_usuario;
