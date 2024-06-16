@@ -81,6 +81,18 @@ Route::middleware([Authenticated::class, CheckAdminRole::class])->group(function
     Route::post('/admin/departamentos/save', [DepartamentoController::class, 'save'])->name('departamentos.save');
     Route::post('/admin/departamentos/destroy', [DepartamentoController::class, 'destroy'])->name('departamentos.destroy');
     Route::post('/admin/departamentos/update', [DepartamentoController::class, 'update'])->name('departamentos.update');
+
+    //Reportes
+    Route::get('/admin/reporte/lugaresporcategoria', [LugaresController::class, 'indexLugaresporcategoria'])->name('lugares.indexLugaresporcategoria');
+    Route::post('/admin/reporte/lugaresporcategoriaGet', [LugaresController::class, 'lugaresporcategoriaGet'])->name('lugares.lugaresporcategoriaGet');
+    Route::get('/admin/reporte/lugarespormunicipio', [LugaresController::class, 'indexLugarespormunicipio'])->name('lugares.indexLugarespormunicipio');
+    Route::post('/admin/reporte/lugarespormunicipioGet', [LugaresController::class, 'lugarespormunicipioGet'])->name('lugares.lugarespormunicipioGet');
+    Route::get('/admin/reporte/lugaresmejorpuntuados', [LugaresController::class, 'indexLugaresmejorpuntuados'])->name('lugares.indexLugaresmejorpuntuados');
+    Route::post('/admin/reporte/lugaresmejorpuntuadosGet', [LugaresController::class, 'lugaresmejorpuntuadosGet'])->name('lugares.lugaresmejorpuntuadosGet');
+
+    Route::get('/admin/reporte/lugaresgratuitos', [LugaresController::class, 'indexLugaresgratuitos'])->name('lugares.indexLugaresgratuitos');
+    Route::post('/admin/reporte/lugaresgratuitosGet', [LugaresController::class, 'lugaresgratuitosGet'])->name('lugares.lugaresgratuitosGet');
+
 });
 
 // Rutas protegidas para los emprendedores

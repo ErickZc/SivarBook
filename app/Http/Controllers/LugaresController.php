@@ -20,9 +20,59 @@ class LugaresController extends Controller
         $this->lugares=$lugares;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
+    //Reportes
+    public function lugaresporcategoriaGet()
+    {
+        $categorias = Categorias::where('estado', true)->get();
+        return response()->json($categorias);
+    }
+
+    public function indexLugaresporcategoria()
+    {
+        return view('/admin/reporte/lugaresporcategoria');
+    }
+
+    public function lugarespormunicipioGet()
+    {
+        $municpio = Municipio::where('estado', true)->get();
+        return response()->json($municpio);
+    }
+
+    public function indexLugarespormunicipio()
+    {
+        $departamentos = Departamento::where('estado', true)->get();
+        $municipios = Municipio::where('estado', true)->get();
+
+        return view('/admin/reporte/lugarespormunicipio', compact('departamentos', 'municipios'));
+    }
+
+    public function lugaresmejorpuntuadosGet()
+    {
+        $depto = Departamento::where('estado', true)->get();
+        return response()->json($depto);
+    }
+
+    public function indexLugaresmejorpuntuados()
+    {
+        $departamentos = Departamento::where('estado', true)->get();
+
+        return view('/admin/reporte/lugaresmejorpuntuados', compact('departamentos'));
+    }
+
+    public function lugaresgratuitosGet()
+    {
+        $depto = Departamento::where('estado', true)->get();
+        return response()->json($depto);
+    }
+
+    public function indexLugaresgratuitos()
+    {
+        $departamentos = Departamento::where('estado', true)->get();
+
+        return view('/admin/reporte/lugaresgratuitos', compact('departamentos'));
+    }
+    
+
     public function index()
     {
         $usuarios = Usuarios::where('usuarios.estado', true)
