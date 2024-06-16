@@ -486,7 +486,7 @@
             // Realizar petición AJAX al servidor para guardar respuestas
             $.ajax({
                 type: "POST",
-                url: '{{ route('guardarRespuestas') }}',
+                url: '{{ route('guardarRespuestasEmprendedor') }}',
                 data: formData,
                 success: function (response) {
                     if (response.success) {

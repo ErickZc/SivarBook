@@ -58,7 +58,7 @@ Route::middleware([Authenticated::class, CheckAdminRole::class])->group(function
 
     //Preguntas Admin
     Route::get('/admin/usuarios/showPreguntas', [UsuarioController::class, 'showPreguntas'])->name('usuarios.showPreguntas');
-    Route::post('/admin/guardarRespuestas', [UsuarioController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+    Route::post('/admin/guardarRespuestas', [UsuarioController::class, 'guardarRespuestas'])->name('guardarRespuestasAdmin');
 
     //Actualizar password
     Route::get('/admin/usuarios/vResetPassword', [UsuarioController::class, 'indexResetPassword'])->name('usuarios.indexResetPassword');
@@ -102,7 +102,7 @@ Route::middleware([Authenticated::class, CheckEmprendedorRole::class])->group(fu
 
     //Preguntas Emprendedor
     Route::get('/emprendedor/showPreguntas', [EmprendedorController::class, 'showPreguntas'])->name('emprendedor.showPreguntas');
-    Route::post('/emprendedor/guardarRespuestas', [EmprendedorController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+    Route::post('/emprendedor/guardarRespuestas', [EmprendedorController::class, 'guardarRespuestas'])->name('guardarRespuestasEmprendedor');
 
     //Perfil
     Route::get('/emprendedor/profile', [EmprendedorController::class, 'profile'])->name('emprendedor.profile');
@@ -143,7 +143,7 @@ Route::middleware([Authenticated::class, CheckTuristaRole::class])->group(functi
 
     //Preguntas Turista
     Route::get('/turista/showPreguntas', [TuristaController::class, 'showPreguntas'])->name('turista.showPreguntas');
-    Route::post('/turista/guardarRespuestas', [TuristaController::class, 'guardarRespuestas'])->name('guardarRespuestas');
+    Route::post('/turista/guardarRespuestas', [TuristaController::class, 'guardarRespuestas'])->name('guardarRespuestasTurista');
 
     Route::post('/turista/Comments/', [TuristaController::class, 'allComments'])->name('turista.allComments');
     Route::post('/turista/createComment/', [TuristaController::class, 'createComment'])->name('turista.createComment');
