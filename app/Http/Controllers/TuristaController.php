@@ -34,7 +34,7 @@ class TuristaController extends Controller
         // Variable para indicar si el usuario debe responder las preguntas
         $debeResponderPreguntas = $preguntasUsuario === null;
 
-        Log::info('preguntasUsuario' . $preguntasUsuario);
+        // Log::info('preguntasUsuario' . $preguntasUsuario);
 
         $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
                     ->take(3)
