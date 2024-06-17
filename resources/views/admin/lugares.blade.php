@@ -64,11 +64,10 @@
                             Reportes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownReportes">
-                            <li><a class="dropdown-item" href="#">Lugares Mejor Puntuados</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Por Categoría</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Por Municipio</a></li>
-                            <li><a class="dropdown-item" href="#">Emprendedores</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Gratuitos</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresmejorpuntuados">Lugares Mejor Puntuados</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresporcategoria">Lugares Por Categoría</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugarespormunicipio">Lugares Por Municipio</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresgratuitos">Lugares Gratuitos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

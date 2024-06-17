@@ -10,6 +10,7 @@ use App\Models\Municipio;
 use App\Models\Categorias;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class LugaresController extends Controller
 {
@@ -20,7 +21,7 @@ class LugaresController extends Controller
         $this->lugares=$lugares;
     }
 
-    //Reportes
+    //Paginas de Reportes
     public function lugaresporcategoriaGet()
     {
         $categorias = Categorias::where('estado', true)->get();
@@ -71,7 +72,285 @@ class LugaresController extends Controller
 
         return view('/admin/reporte/lugaresgratuitos', compact('departamentos'));
     }
+
+    //Informacion del reporte
+
+    public function pdfCategoria(Request $request){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->where('lugares.id_categoria', $request->input('id'))
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfCategoria', compact('categoria','fecha'));
+        return $pdf->download('pdfCategoria.pdf');
+    }
+
+    public function pdfCategoriaAll(){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfCategoria', compact('categoria','fecha'));
+        return $pdf->download('pdfCategoriaAll.pdf');
+    }
     
+    public function pdfLugaresGratuitos(Request $request){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->where('municipio.id_depto', $request->input('id'))
+        ->where('lugares.precio', 0)
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresGratuitos', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresGratuitos.pdf');
+    }
+
+    public function pdfLugaresGratuitosAll(){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->where('lugares.precio', 0)
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresGratuitos', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresGratuitosAll.pdf');
+    }
+
+    public function pdfLugaresMunicipio(Request $request){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->where('lugares.id_municipio', $request->input('id'))
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresMunicipio', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresPorMunicipio.pdf');
+    }
+
+    public function pdfLugaresMunicipioAll(){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'lugares.descripcion as descripcion',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha'
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresMunicipio', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresPorMunicipioAll.pdf');
+    }
+
+    public function pdfLugaresMejorValorados(Request $request){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha',
+            DB::raw('AVG(lugares_valoraciones.id_valoracion) as promedio_valoracion'),
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->join('lugares_valoraciones', 'lugares.id_lugar', '=', 'lugares_valoraciones.id_lugar')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->where('departamento.id_depto', $request->input('id'))
+        ->groupBy('lugares.id_lugar', 'usuarios.id_usuario', 'lugares.id_municipio', 'municipio.id_depto', 'lugares.id_categoria', 'usuarios.nombre', 'usuarios.apellido', 'categorias.nombre_categoria', 'lugares.nombre_lugar', 'municipio.municipio', 'departamento.departamento', 'lugares.precio', 'lugares.fechaPublicacion')
+        ->havingRaw('AVG(lugares_valoraciones.id_valoracion) BETWEEN 4.5 AND 5')
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresMejorValorados', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresMejorValorados.pdf');
+    }
+
+    public function pdfLugaresMejorValoradosAll(){
+
+        $categoria = Lugares::select([
+            'lugares.id_lugar as idLugar',
+            'usuarios.id_usuario as idUser',
+            'lugares.id_municipio as idMunicipio',
+            'municipio.id_depto as idDepto',
+            'lugares.id_categoria as idCategoria',
+            DB::raw('CONCAT(usuarios.nombre, " ", usuarios.apellido) as user'),
+            'categorias.nombre_categoria as categoria',
+            'lugares.nombre_lugar as nombre',
+            'municipio.municipio as municipio',
+            'departamento.departamento as departamento',
+            DB::raw('CONCAT("$", ROUND(lugares.precio, 2)) as precio'),
+            DB::raw('ROUND(lugares.precio, 2) as precio2'),
+            'lugares.fechaPublicacion as fecha',
+            DB::raw('AVG(lugares_valoraciones.id_valoracion) as promedio_valoracion'),
+        ])
+        ->join('usuarios', 'lugares.id_usuario', '=', 'usuarios.id_usuario')
+        ->join('categorias', 'lugares.id_categoria', '=', 'categorias.id_categoria')
+        ->join('municipio', 'lugares.id_municipio', '=', 'municipio.id_municipio')
+        ->join('departamento', 'municipio.id_depto', '=', 'departamento.id_depto')
+        ->join('lugares_valoraciones', 'lugares.id_lugar', '=', 'lugares_valoraciones.id_lugar')
+        ->where('usuarios.estado', true)
+        ->where('categorias.estado', true)
+        ->where('municipio.estado', true)
+        ->where('lugares.estado', true)
+        ->groupBy('lugares.id_lugar', 'usuarios.id_usuario', 'lugares.id_municipio', 'municipio.id_depto', 'lugares.id_categoria', 'usuarios.nombre', 'usuarios.apellido', 'categorias.nombre_categoria', 'lugares.nombre_lugar', 'municipio.municipio', 'departamento.departamento', 'lugares.precio', 'lugares.fechaPublicacion')
+        ->havingRaw('AVG(lugares_valoraciones.id_valoracion) BETWEEN 4.5 AND 5')
+        ->get();
+
+        $fecha = now();
+        $pdf = PDF::loadView('/admin/reporte/views/pdfLugaresMejorValorados', compact('categoria','fecha'));
+        return $pdf->download('pdfLugaresMejorValoradosAll.pdf');
+    }
+
 
     public function index()
     {

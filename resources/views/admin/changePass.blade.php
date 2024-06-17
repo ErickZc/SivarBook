@@ -41,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Inicio</a>
+                        <a class="nav-link active" href="/admin">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMantenimiento" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,11 +60,10 @@
                             Reportes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownReportes">
-                            <li><a class="dropdown-item" href="#">Lugares Mejor Puntuados</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Por Categoría</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Por Municipio</a></li>
-                            <li><a class="dropdown-item" href="#">Emprendedores</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Gratuitos</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresmejorpuntuados">Lugares Mejor Puntuados</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresporcategoria">Lugares Por Categoría</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugarespormunicipio">Lugares Por Municipio</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresgratuitos">Lugares Gratuitos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

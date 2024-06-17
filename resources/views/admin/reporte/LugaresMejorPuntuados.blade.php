@@ -65,11 +65,10 @@
                             Reportes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownReportes">
-                            <li><a class="dropdown-item" href="#">Lugares Mejor Puntuados</a></li>
-                            <li><a class="dropdown-item" href="">Lugares Por Categoría</a></li>
-                            <li><a class="dropdown-item active" href="#">Lugares Por Municipio</a></li>
-                            <li><a class="dropdown-item" href="#">Emprendedores</a></li>
-                            <li><a class="dropdown-item" href="#">Lugares Gratuitos</a></li>
+                            <li><a class="dropdown-item active" href="/admin/reporte/lugaresmejorpuntuados">Lugares Mejor Puntuados</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresporcategoria">Lugares Por Categoría</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugarespormunicipio">Lugares Por Municipio</a></li>
+                            <li><a class="dropdown-item" href="/admin/reporte/lugaresgratuitos">Lugares Gratuitos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -98,10 +97,11 @@
 
         <div class="row feed">
             <div class="data-body">
-                <h1 class="text-center fw-bold">Reporte de lugares mejor puntados</h1>
+                <h1 class="text-center fw-bold">Reporte de lugares mejor valorados</h1>
                 <br/>
                 <p action="text-mutted">
                     Para generar el reporte de lugares, seleccione el departamento y clic en generar.
+                    Ten en cuenta que solo se mostraran los lugares con un promedio de <strong> 4.5 </strong> a <strong> 5 </strong>estrellas
                 </p>
                 <div id="contenido-reporte">
 
@@ -126,6 +126,13 @@
                         <path fill-rule="evenodd" d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m5.5 1.5v2a1 1 0 0 0 1 1h2zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.7 11.7 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.86.86 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.84.84 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.8 5.8 0 0 0-1.335-.05 11 11 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.24 1.24 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a20 20 0 0 1-1.062 2.227 7.7 7.7 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103"/>
                         </svg>
                             Generar
+                        </button>
+                        <button type="button" class="btn btn-outline-dark btn-lg" id="enviarAll">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
+                        </svg>
+                        </svg>
+                            Reporte sin filtro
                         </button>
                     </form>
                 </div>
@@ -166,11 +173,15 @@
                 antesDeEnviar();
             });
 
+            $("#enviarAll").click(function () {
+                window.location.href = "http://localhost:8000/admin/reporte/views/pdfLugaresMejorValoradosAll";
+            });
+
         });
 
         function antesDeEnviar() {
             if ($("#idDepartamento").val() != "") {
-                
+                window.location.href = "http://localhost:8000/admin/reporte/views/pdfLugaresMejorValorados?id=" + $("#idDepartamento").val();
             } else {
                 var catego = document.getElementById("idDepartamento");
                 catego.classList.add("is-invalid");

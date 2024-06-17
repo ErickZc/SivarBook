@@ -86,17 +86,25 @@ Route::middleware([Authenticated::class, CheckAdminRole::class])->group(function
     Route::post('/admin/departamentos/destroy', [DepartamentoController::class, 'destroy'])->name('departamentos.destroy');
     Route::post('/admin/departamentos/update', [DepartamentoController::class, 'update'])->name('departamentos.update');
 
-    //Reportes
+    //Paginas de reportes
     Route::get('/admin/reporte/lugaresporcategoria', [LugaresController::class, 'indexLugaresporcategoria'])->name('lugares.indexLugaresporcategoria');
     Route::post('/admin/reporte/lugaresporcategoriaGet', [LugaresController::class, 'lugaresporcategoriaGet'])->name('lugares.lugaresporcategoriaGet');
     Route::get('/admin/reporte/lugarespormunicipio', [LugaresController::class, 'indexLugarespormunicipio'])->name('lugares.indexLugarespormunicipio');
     Route::post('/admin/reporte/lugarespormunicipioGet', [LugaresController::class, 'lugarespormunicipioGet'])->name('lugares.lugarespormunicipioGet');
     Route::get('/admin/reporte/lugaresmejorpuntuados', [LugaresController::class, 'indexLugaresmejorpuntuados'])->name('lugares.indexLugaresmejorpuntuados');
     Route::post('/admin/reporte/lugaresmejorpuntuadosGet', [LugaresController::class, 'lugaresmejorpuntuadosGet'])->name('lugares.lugaresmejorpuntuadosGet');
-
     Route::get('/admin/reporte/lugaresgratuitos', [LugaresController::class, 'indexLugaresgratuitos'])->name('lugares.indexLugaresgratuitos');
     Route::post('/admin/reporte/lugaresgratuitosGet', [LugaresController::class, 'lugaresgratuitosGet'])->name('lugares.lugaresgratuitosGet');
 
+    //Contenido de reporte
+    Route::get('/admin/reporte/views/pdfCategoria', [LugaresController::class, 'pdfCategoria'])->name('lugares.pdfCategoria');
+    Route::get('/admin/reporte/views/pdfCategoriaAll', [LugaresController::class, 'pdfCategoriaAll'])->name('lugares.pdfCategoriaAll');
+    Route::get('/admin/reporte/views/pdfLugaresGratuitos', [LugaresController::class, 'pdfLugaresGratuitos'])->name('lugares.pdfLugaresGratuitos');
+    Route::get('/admin/reporte/views/pdfLugaresGratuitosAll', [LugaresController::class, 'pdfLugaresGratuitosAll'])->name('lugares.pdfLugaresGratuitosAll');
+    Route::get('/admin/reporte/views/pdfLugaresMunicipio', [LugaresController::class, 'pdfLugaresMunicipio'])->name('lugares.pdfLugaresMunicipio');
+    Route::get('/admin/reporte/views/pdfLugaresMunicipioAll', [LugaresController::class, 'pdfLugaresMunicipioAll'])->name('lugares.pdfLugaresMunicipioAll');
+    Route::get('/admin/reporte/views/pdfLugaresMejorValorados', [LugaresController::class, 'pdfLugaresMejorValorados'])->name('lugares.pdfLugaresMejorValorados');
+    Route::get('/admin/reporte/views/pdfLugaresMejorValoradosAll', [LugaresController::class, 'pdfLugaresMejorValoradosAll'])->name('lugares.pdfLugaresMejorValoradosAll');
 });
 
 // Rutas protegidas para los emprendedores
