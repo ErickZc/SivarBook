@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" defer></script>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <style>
         body, html {
@@ -92,30 +99,12 @@
                                 </div>
                                 <h4 class="text-center mb-4">Olvidé Credenciales</h4>
                                 <!-- Formulario de olvidé credenciales -->
-                                <form id="forgotPasswordForm" method="POST" action="{{ route('changePassword') }}">
+                                <form id="forgotPasswordForm" method="POST" action="{{ route('sendPasswordResetEmail') }}">
                                     @csrf
                                     <div class="mb-3">
                                         <div class="form-floating">
                                             <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo electrónico" required>
                                             <label for="correo">Correo electrónico</label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Contraseña Actual" required>
-                                            <label for="current_password">Contraseña Actual</label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control" name="new_password" id="new_password" placeholder="Nueva Contraseña" required>
-                                            <label for="new_password">Nueva Contraseña</label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="form-floating">
-                                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirmar Nueva Contraseña" required>
-                                            <label for="confirm_password">Confirmar Nueva Contraseña</label>
                                         </div>
                                     </div>
                                     <div class="d-grid">
@@ -139,44 +128,155 @@
     </div>
 </section>
 
-<!-- Agrega el JS de jQuery y Toastr -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-    toastr.options = {
-        "closeButton": true,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
+<!-- Modal para responder preguntas -->
+<div class="modal fade" id="preguntasModal" tabindex="-1" aria-labelledby="preguntasModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content shadow-lg p-3 mb-5 bg-white rounded">
+            <div class="modal-header">
+                <h5 class="modal-title" id="preguntasModalLabel">Responder preguntas</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <form id="preguntasForm">
+                @csrf <!-- Agrega el campo oculto para el token CSRF -->
+                <div class="modal-body">
+                @isset($preguntas)
+                    @if ($preguntas->isNotEmpty())
+                        @foreach($preguntas as $pregunta)
+                            <div class="mb-3">
+                                <label for="respuesta_texto_{{ $pregunta->id_pregunta }}" class="form-label" style="font-weight: bold">{{ $pregunta->pregunta }}</label>
+                                <input type="text" class="form-control" id="respuesta_texto_{{ $pregunta->id_pregunta }}" name="respuestas_texto[{{ $pregunta->id_pregunta }}]" placeholder="Respuesta textual" required>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>No hay preguntas disponibles en este momento.</p>
+                    @endif
+                @else
+                    <p>No hay preguntas disponibles en este momento.</p>
+                @endisset
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal para cambiar contraseña -->
+<div class="modal fade" id="cambiarContrasenaModal" tabindex="-1" aria-labelledby="cambiarContrasenaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cambiarContrasenaModalLabel">Cambiar Contraseña</h5>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <form id="cambiarContrasenaForm">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirmar Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> -->
+                    <button type="submit" class="btn btn-primary">Guardar Contraseña</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-    // Capturar el envío del formulario
+
+<!-- Agrega el JS de jQuery y Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+<script>
     $(document).ready(function () {
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
         $("#forgotPasswordForm").submit(function (e) {
             e.preventDefault(); // Evitar envío automático del formulario
 
             var formData = $(this).serialize();
 
-            // Enviar la solicitud AJAX
+            $.ajax({
+                type: "POST",
+                url: "{{ route('sendPasswordResetEmail') }}",
+                data: formData,
+                success: function (response) {
+                    toastr.success(response.message);
+                    var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
+                        keyboard: false, // Deshabilitar el cierre con la tecla ESC
+                        backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
+                    });
+                    modal.show();
+                },
+                error: function (xhr, status, error) {
+                    toastr.error(xhr.responseJSON.error);
+                }
+            });
+        });
+
+        $("#preguntasForm").submit(function (e) {
+            e.preventDefault(); // Evitar envío automático del formulario
+
+            var formData = $(this).serialize();
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('changePassword') }}",
                 data: formData,
                 success: function (response) {
                     toastr.success(response.message);
+                    $('#preguntasModal').modal('hide');
+                    var modal = new bootstrap.Modal(document.getElementById('cambiarContrasenaModal'), {
+                        keyboard: false, // Deshabilitar el cierre con la tecla ESC
+                        backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
+                    });
+                    modal.show();
+                },
+                error: function (xhr, status, error) {
+                    toastr.error(xhr.responseJSON.error);
+                }
+            });
+        });
+
+        $("#cambiarContrasenaForm").submit(function (e) {
+            e.preventDefault(); // Evitar envío automático del formulario
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('guardarNuevaContrasena') }}", // Ajusta la ruta según sea necesario
+                data: formData,
+                success: function (response) {
+                    toastr.success(response.message);
+                    $('#cambiarContrasenaModal').modal('hide');
                     setTimeout(function () {
-                        window.location.href = "{{ route('login') }}"; // Redireccionar al inicio de sesión después del éxito
-                    }, 3000); // Esperar 3 segundos antes de redireccionar
+                        window.location.href = "{{ route('login') }}";
+                    }, 1000);
                 },
                 error: function (xhr, status, error) {
                     toastr.error(xhr.responseJSON.error);
@@ -185,6 +285,8 @@
         });
     });
 </script>
+
+
 
 </body>
 </html>
