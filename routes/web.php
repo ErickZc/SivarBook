@@ -27,8 +27,9 @@ Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->na
 Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/forgot-password', [ForgotPasswordController::class, 'showChangePasswordForm'])->name('forgot-password');
-Route::post('/change-password', [ForgotPasswordController::class, 'changePassword'])->name('changePassword');
-
+Route::post('changePassword', [ForgotPasswordController::class, 'changePassword'])->name('changePassword');
+Route::post('sendPasswordResetEmail', [ForgotPasswordController::class, 'sendPasswordResetEmail'])->name('sendPasswordResetEmail');
+Route::post('guardarNuevaContrasena', [ForgotPasswordController::class, 'guardarNuevaContrasena'])->name('guardarNuevaContrasena');
 
 
 // Rutas protegidas Admin

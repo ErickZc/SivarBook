@@ -32,7 +32,7 @@ class UsuarioController extends Controller
         // Variable para indicar si el usuario debe responder las preguntas
         $debeResponderPreguntas = $preguntasUsuario === null;
 
-        $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
+        $preguntas = Preguntas::orderBy('id_pregunta', 'asc')
                     ->take(3)
                     ->select('id_pregunta', 'pregunta') // Aquí especificas las columnas que deseas seleccionar
                     ->get();

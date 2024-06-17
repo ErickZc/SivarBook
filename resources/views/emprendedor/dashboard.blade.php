@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambio de credenciales</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SivarBook</title>
+    <link rel="shortcut icon" href="~/Images/SivarBook.png" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/valoraciones.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" crossorigin="anonymous"></script>
-    <link href="{{ asset('css/dashboardEmprendedor.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" asp-append-version="true" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"> </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+        asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+        asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Font Awesome icons -->
+    <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+        integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link href="{{ asset('css/dashboardEmprendedor.css') }}" rel="stylesheet">
 
     <!-- Agrega el CSS de Toastr -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
@@ -90,17 +99,15 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="handle ps-3">
+                    <div class="handle">
                         <br />
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="nombrePlaceholder">
-                            Nombre: <span class="placeholder col-6"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="edadPlaceholder">
-                            Edad: <span class="placeholder col-4"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="emailPlaceholder">
-                            E-mail: <span class="placeholder col-8"></span>
-                        </p>
+                            <b id="nombrePlaceholder"><span class=""></span></b>
+                            <p class="text-muted mb-0" id="edadPlaceholder">
+                                Edad: <span class=""></span>
+                            </p>
+                            <p class="text-muted" id="emailPlaceholder">
+                                E-mail: <span class=""></span>
+                            </p>
                     </div>
                 </div>
             </div>
@@ -116,8 +123,15 @@
                     <form id="profileForm" action="{{ route('emprendedor.profile') }}" method="GET">
                         <input type="hidden" name="id_usuario" value="36">
                         <a class="menu-item" href="javascript:void(0);" onclick="setProfileUserId(usuario);">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.5 7.063C16.5 10.258 14.57 13 12 13c-2.572 0-4.5-2.742-4.5-5.938C7.5 3.868 9.16 2 12 2s4.5 1.867 4.5 5.063zM4.102 20.142C4.487 20.6 6.145 22 12 22c5.855 0 7.512-1.4 7.898-1.857a.416.416 0 0 0 .09-.317C19.9 18.944 19.106 15 12 15s-7.9 3.944-7.989 4.826a.416.416 0 0 0 .091.317z" fill="#000000"></path></g></svg>
-                            &nbsp; &nbsp;
+                            <svg width="20" height="20" fill="#000000" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M15.592 3.027C14.68 2.042 13.406 1.5 12 1.5c-1.414 0-2.692.54-3.6 1.518-.918.99-1.365 2.334-1.26 3.786C7.348 9.67 9.528 12 12 12c2.472 0 4.648-2.33 4.86-5.195.106-1.439-.344-2.78-1.268-3.778Z">
+                            </path>
+                            <path
+                                d="M20.25 22.5H3.75a1.454 1.454 0 0 1-1.134-.522 1.655 1.655 0 0 1-.337-1.364c.396-2.195 1.63-4.038 3.571-5.333C7.574 14.132 9.758 13.5 12 13.5c2.242 0 4.426.633 6.15 1.781 1.94 1.294 3.176 3.138 3.571 5.332.091.503-.032 1-.336 1.365a1.453 1.453 0 0 1-1.135.522Z">
+                            </path>
+                        </svg>                            &nbsp; &nbsp;
                             <h5> Mi perfil</h5>
                         </a>
                         
@@ -142,7 +156,7 @@
                 <div class="create-post">
                     <div class="row">
                         <div class="col-auto">
-                            <b style="font-size:24px;"> > > Mis publicaciones</b> 
+                            <b style="font-size:20px;"> > > Mis publicaciones</b> 
                         </div>
                     </div>
                 </div>
@@ -421,12 +435,13 @@
     </div>
 </div>
 
-<footer class="footer-dark text-muted" id="footer">
+<footer class="footer-dark2 text-muted" id="footer">
     <br>
     <div class="container footer-2">
         <div class="row footer-3">
             <div class="col-md-6">
-                <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework Empresariales</p>
+                <p class="text-start texto-footer">&copy; 2024 - Proyecto Final, Aplicacion de Framework
+                    Empresariales</p>
             </div>
             <div class="col-md-6 text-end">
                 <p class="text-end">&copy; SivarBook Inc</p>
@@ -446,6 +461,20 @@
 
 
 <script>   
+window.onscroll = function() {
+            scrollFunction()
+        };
+
+
+        function scrollFunction() {
+            var footer = document.getElementById("footer");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                footer.style.bottom = "0px";
+            } else {
+                footer.style.bottom = "-200px";
+            }
+        }
+
     toastr.options = {
         "closeButton": true,
         "newestOnTop": false,
@@ -513,7 +542,7 @@
             });
         });
     });
-    window.onscroll = function() {scrollFunction()};
+    
 
 
 
@@ -539,15 +568,6 @@
         });
     }
 
-
-    function scrollFunction() {
-    var footer = document.getElementById("footer");
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            footer.style.bottom = "0";
-        } else {
-            footer.style.bottom = "-200px";
-        }
-    }
 
         function cargarLugares() {
 

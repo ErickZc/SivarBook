@@ -185,7 +185,8 @@
                                         <div class="col-auto">
                                             <div class="d-flex align-items-center">
                                                 <h4 class="pb-0 mb-0">Valoraciones: &nbsp;</h4>
-                                                <span class="puntuacion" id="valoracionNumber" style="color: rgb(76, 76, 76)"></span>
+                                                <span class="puntuacion" id="valoracionNumber"
+                                                    style="color: rgb(76, 76, 76)"></span>
                                                 <div class="valoracion mx-0 p-0">
                                                     <button type="button" id="star5" class="icon-button"
                                                         data-bs-toggle="popover" data-bs-trigger="focus"
@@ -393,6 +394,7 @@
 
         </main>
     </div>
+    <br><br><br><br><br><br>
 
     <footer class="footer-dark2 text-muted" id="footer">
         <br>
@@ -554,7 +556,7 @@
                 dataType: 'json',
                 cache: false,
             }).done(function(resp) {
-                
+
                 if (resp > 0) {
                     var valoracionGlobal = resp
                     var valoracionNumber = document.getElementById('valoracionNumber');
@@ -819,8 +821,8 @@
                     }).done(function(resp) {
                         if (resp) {
                             swalWithBootstrapButtons.fire(
-                                'Eliminado',
-                                'Tu registro ha sido eliminado.',
+                                'Comentario eliminado exitosamente',
+                                'El comentario seleccionado ha sido eliminado',
                                 'success'
                             )
                             showData(idLugar);
@@ -885,18 +887,18 @@
                         dataType: 'json',
                         cache: false,
                     }).done(function(resp) {
-                        Swal.fire({
-                            title: '¡Gracias por tu comentario!',
-                            icon: 'success',
-                            confirmButtonText: 'Continuar'
-                        })
+                        swal2Btns.fire(
+                            'Comentario guardado',
+                            'Muchas gracias por tu opinión',
+                            'success'
+                        )
                         document.getElementById("Comentario").value = "";
                         showData(idLugar);
                     }).fail(function() {
                         Swal.fire({
                             title: 'Ocurrió un error',
                             icon: 'error',
-                            confirmButtonText: 'Continuar'
+                            confirmButtonText: 'OK'
                         })
                     });
 
@@ -904,7 +906,7 @@
                     Swal.fire({
                         title: 'Verifica los textos marcador en rojo para continuar',
                         icon: 'error',
-                        confirmButtonText: 'Continuar'
+                        confirmButtonText: 'OK'
                     })
 
                 }
@@ -949,11 +951,11 @@
                         }
                     }).done(function(resp) {
                         if (resp) {
-                            Swal.fire({
-                                title: 'El comentario ha sido modificado correctamente',
-                                icon: 'success',
-                                confirmButtonText: 'Continuar'
-                            })
+                            swal2Btns.fire(
+                                'Comentario modificado exitosamente',
+                                'Muchas gracias por tu opinión',
+                                'success'
+                            )
                             showData(idLugar);
                             $("#btnCerrar2").click();
                             $("#uComentario").val("");

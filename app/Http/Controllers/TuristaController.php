@@ -36,7 +36,7 @@ class TuristaController extends Controller
 
         // Log::info('preguntasUsuario' . $preguntasUsuario);
 
-        $preguntas = Preguntas::orderBy('id_pregunta', 'desc')
+        $preguntas = Preguntas::orderBy('id_pregunta', 'asc')
                     ->take(3)
                     ->select('id_pregunta', 'pregunta') // Aquí especificas las columnas que deseas seleccionar
                     ->get();
