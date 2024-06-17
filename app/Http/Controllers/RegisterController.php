@@ -46,6 +46,10 @@ class RegisterController extends Controller
         }
 
         // Crear el nuevo usuario
+        $path = public_path('img/avatar.webp');
+        $imagenBinaria = file_get_contents($path);
+        $imagenBase64 = base64_encode($imagenBinaria);
+
         $user = new Usuarios();
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
@@ -53,6 +57,7 @@ class RegisterController extends Controller
         $user->correo = $request->correo;
         $user->password = bcrypt($request->password);
         $user->id_rol = $request->id_rol;
+        $user->imagen = $imagenBase64;
         $user->estado = 1;
         $user->fechaCreacion = now();
         $user->save();
