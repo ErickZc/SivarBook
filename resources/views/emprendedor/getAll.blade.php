@@ -22,7 +22,7 @@
     <link href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
         integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    <link href="{{ asset('css/turista.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dashboardEmprendedor.css') }}" rel="stylesheet">
     <script>
         // Verificar si el usuario intenta navegar hacia atrás
         window.onload = function () {
@@ -92,17 +92,15 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="handle ps-3">
+                    <div class="handle">
                         <br />
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="nombrePlaceholder">
-                            Nombre: <span class="placeholder col-6"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="edadPlaceholder">
-                            Edad: <span class="placeholder col-4"></span>
-                        </p>
-                        <p class="placeholder-glow text-muted mb-0 text-start" id="emailPlaceholder">
-                            E-mail: <span class="placeholder col-8"></span>
-                        </p>
+                            <b id="nombrePlaceholder"><span class=""></span></b>
+                            <p class="text-muted mb-0" id="edadPlaceholder">
+                                Edad: <span class=""></span>
+                            </p>
+                            <p class="text-muted" id="emailPlaceholder">
+                                E-mail: <span class=""></span>
+                            </p>
                     </div>
                 </div>
             </div>
