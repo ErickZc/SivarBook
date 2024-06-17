@@ -552,6 +552,7 @@
                 <form id="preguntasForm">
                     @csrf <!-- Agrega el campo oculto para el token CSRF -->
                     <div class="modal-body">
+                        @isset($preguntas)
                         @if ($preguntas->isNotEmpty())
                             @foreach($preguntas as $pregunta)
                                 <div class="mb-3">
@@ -562,6 +563,7 @@
                         @else
                             <p>No hay preguntas disponibles en este momento.</p>
                         @endif
+                        @endisset
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -628,6 +630,7 @@
             callAPI();
         });
         // Mostrar el modal automáticamente si debe responder preguntas
+        @isset($debeResponderPreguntas)
         @if ($debeResponderPreguntas)
             var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
                 keyboard: false, // Deshabilitar el cierre con la tecla ESC
@@ -635,6 +638,7 @@
             });
             modal.show();
         @endif
+        @endisset
 
         $(document).keypress(function(e)    {
                 console.log(e);
