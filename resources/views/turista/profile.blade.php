@@ -7,6 +7,7 @@
     <title>SivarBook</title>
     <link rel="shortcut icon" href="~/Images/SivarBook.png" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/valoraciones.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
@@ -305,6 +306,14 @@
                 }
             }
 
+            const swal2Btns = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger me-4'
+            },
+            buttonsStyling: false
+        })
+
         function callAPI() {
             const url =
                 'https://newsdata.io/api/1/news?apikey=pub_24023d24caea9400184d5f62d4dbd77f52c41&q=el%20salvador&country=sv&language=es&category=entertainment,tourism';
@@ -425,11 +434,11 @@
                             contentType: false
                         }).done(function(resp) {
                             if (resp) {
-                                Swal.fire({
-                                    title: 'El registro ha sido agregado correctamente',
-                                    icon: 'success',
-                                    confirmButtonText: 'Continuar'
-                                })
+                                swal2Btns.fire(
+                            'Foto de perfil actualizada',
+                            'La foto de perfil ha sido actualizada exitosamente',
+                            'success'
+                            )
 
                                 $("#cerrar").trigger("click");
                                 $("#Imagen").val("");
@@ -502,11 +511,11 @@
                             }
                         }).done(function(resp) {
                             if (resp) {
-                                Swal.fire({
-                                    title: 'La información del usuario ha sido actualizada',
-                                    icon: 'success',
-                                    confirmButtonText: 'Continuar'
-                                })
+                                 swal2Btns.fire(
+                            'Información actualizada',
+                            'Los datos del perfil han sido actualizados exitosamente',
+                            'success'
+                            )
                                 limpiarCajas(nom, ape, eda);
                                 limpiarClases();
                                 deshabilitar();
