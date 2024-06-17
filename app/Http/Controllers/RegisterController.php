@@ -11,7 +11,9 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         // $roles = Rol::all();
-        $roles = Rol::where('nombre_rol', '!=', 'ADMINISTRADOR')->get();
+        $roles = Rol::where('nombre_rol', '!=', 'ADMINISTRADOR')
+        ->where('nombre_rol', '!=', 'MODERADOR')
+        ->get();
         return view('register', compact('roles'));
     }
 

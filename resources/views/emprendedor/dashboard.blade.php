@@ -496,13 +496,13 @@ window.onscroll = function() {
         // Mostrar el modal automáticamente si debe responder preguntas
         @isset($debeResponderPreguntas)
             @if ($debeResponderPreguntas)
-                <script>
+
                     var modal = new bootstrap.Modal(document.getElementById('preguntasModal'), {
                         keyboard: false, // Deshabilitar el cierre con la tecla ESC
                         backdrop: 'static' // Evitar el cierre haciendo clic fuera del modal
                     });
                     modal.show();
-                </script>
+
             @endif
         @endisset
 
